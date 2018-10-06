@@ -43,6 +43,9 @@ msiexec /i https://github.com/MicrosoftArchive/redis/releases/download/win-3.0.5
 echo [*] Installing Gulp...
 yarn global add gulp
 
+echo [*] Installing R...
+choco install r.project -y
+
 echo [*] Migrating databases...
 rake db:migrate
 rake db:migrate RAILS_ENV=test

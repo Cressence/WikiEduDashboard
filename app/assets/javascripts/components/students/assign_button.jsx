@@ -24,6 +24,7 @@ const AssignButton = createReactClass({
     role: PropTypes.number.isRequired,
     student: PropTypes.object,
     current_user: PropTypes.object,
+    course_id: PropTypes.string.isRequired,
     is_open: PropTypes.bool,
     permitted: PropTypes.bool,
     addAvailable: PropTypes.bool,
@@ -98,7 +99,7 @@ const AssignButton = createReactClass({
       title: decodeURIComponent(this.state.title).trim(),
       project: this.state.project,
       language: this.state.language,
-      course_id: this.props.course.slug,
+      course_id: this.props.course_id,
       user_id: student,
       role: this.props.role
     };
@@ -200,7 +201,7 @@ const AssignButton = createReactClass({
     let assignments = this.props.assignments.map(ass => {
       let removeButton;
       let articleLink;
-      ass.course_id = this.props.course.slug;
+      ass.course_id = this.props.course_id;
       const article = CourseUtils.articleFromAssignment(ass, this.props.course.home_wiki);
       if (this.props.permitted) {
         removeButton = <button className="button border plus" onClick={this.unassign.bind(this, ass)}>-</button>;

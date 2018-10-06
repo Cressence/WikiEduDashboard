@@ -75,6 +75,7 @@ gem 'chartkick' # Used for plots in Rails views
 
 ### System utilities
 gem 'pandoc-ruby' # Text converter, for markdown<->html<->wikitext conversions
+gem 'rinruby' # R plots!
 
 ### Platform-specific fixes
 # TZ information is not available on Windows, needs to be installed separately
@@ -109,6 +110,7 @@ group :development, :test do
   gem 'rubocop-rspec-focused', require: false
   gem 'rubocop-rspec', require: false
   gem 'timecop' # Test utility for setting the time
+  gem 'poltergeist' # Capypara feature specs driven by PhantomJS
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
 end
 
@@ -117,8 +119,6 @@ group :test do
   gem 'rake', '>= 11.0'
   gem 'capybara'
   gem 'capybara-screenshot'
-  gem 'chromedriver-helper' # Capypara feature specs driven by headless Chrome
-  gem 'selenium-webdriver' # Capypara feature specs driven by headless Chrome
   gem 'database_cleaner'
   gem 'webmock'
   gem 'vcr' # Saves external web requests and replays them in tests

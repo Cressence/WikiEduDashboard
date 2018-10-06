@@ -21,7 +21,7 @@ const Grading = createReactClass({
     const gradeableBlocks = [];
     this.props.weeks.forEach(week => {
       week.blocks.forEach(block => {
-        if (block.points === null) { return; }
+        if (!block.points) { return; }
         block.grading_order = `${week.order}${block.order}`;
         gradeableBlocks.push(block);
       });
@@ -36,7 +36,7 @@ const Grading = createReactClass({
       return a.grading_order - b.grading_order;
     });
 
-    const total = _.sumBy(gradeableBlocks, 'points') || 0;
+    const total = _.sumBy(gradeableBlocks, 'points');
 
     const gradeables = gradeableBlocks.map((block) => {
       return (

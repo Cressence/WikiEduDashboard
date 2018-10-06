@@ -57,9 +57,7 @@ describe 'timeline editing', type: :feature, js: true do
     end
     sleep 1
     within(".week-1 .block-kind-#{Block::KINDS['assignment']}") do
-      within '.block__training-modules' do
-        find('input').send_keys(unassigned_module_name, :enter)
-      end
+      find('div.Select--multi').send_keys(unassigned_module_name, :enter)
     end
 
     within('.block__block-actions') { click_button 'Save' }
@@ -153,7 +151,6 @@ describe 'timeline editing', type: :feature, js: true do
     visit "/courses/#{course_with_timeline.slug}/timeline"
     expect(course_with_timeline.blocks.count).to eq(3)
     find('button.week__add-block').click
-    sleep 0.5
     click_button 'Save'
     sleep 1
     expect(course_with_timeline.blocks.count).to eq(4)
@@ -170,7 +167,6 @@ describe 'timeline editing', type: :feature, js: true do
     end
 
     # Change the content
-    find('input.title').native.clear
     find('input.title').set 'My New Title'
     expect(page).not_to have_content 'Block Title'
     expect(page).to have_content 'My New Title'
@@ -189,7 +185,6 @@ describe 'timeline editing', type: :feature, js: true do
     sleep 0.5
     within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
       find('.block__edit-block', match: :first).click
-      find('input.title').native.clear
       find('input.title').set 'My New Title'
     end
 
@@ -198,7 +193,6 @@ describe 'timeline editing', type: :feature, js: true do
     sleep 0.5
     within ".week-1 .block-kind-#{Block::KINDS['milestone']}" do
       find('.block__edit-block', match: :first).click
-      find('input.title').native.clear
       find('input.title').set 'My Other New Title'
     end
 

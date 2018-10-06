@@ -15,11 +15,6 @@ const StudentDrawer = createReactClass({
     trainingModules: PropTypes.array
   },
 
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.isOpen || this.props.isOpen) { return true; }
-    return false;
-  },
-
   render() {
     if (!this.props.isOpen) { return <tr />; }
 

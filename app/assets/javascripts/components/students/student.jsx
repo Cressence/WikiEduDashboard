@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { setUploadFilters } from '../../actions/uploads_actions';
 import { fetchUserRevisions } from '../../actions/user_revisions_actions';
 import { fetchTrainingStatus } from '../../actions/training_status_actions';
-import { getFiltered } from '../../utils/model_utils.js';
 
 import AssignCell from './assign_cell.jsx';
 import { trunc } from '../../utils/strings';
@@ -19,7 +18,8 @@ const Student = createReactClass({
     course: PropTypes.object.isRequired,
     current_user: PropTypes.object,
     editable: PropTypes.bool,
-    assignments: PropTypes.array,
+    assigned: PropTypes.array,
+    reviewing: PropTypes.array,
     isOpen: PropTypes.bool,
     toggleDrawer: PropTypes.func,
     fetchUserRevisions: PropTypes.func.isRequired,
@@ -78,29 +78,21 @@ const Student = createReactClass({
     let assignButton;
     let reviewButton;
     if (this.props.course.published) {
-      const assignOptions = { user_id: this.props.student.id, role: 0 };
-      const assigned = getFiltered(this.props.assignments, assignOptions);
       assignButton = (
         <AssignCell
-          course={this.props.course}
-          current_user={this.props.current_user}
-          student={this.props.student}
+          {...this.props}
           role={0}
           editable={this.props.editable}
-          assignments={assigned}
+          assignments={this.props.assigned}
         />
       );
 
-      const reviewOptions = { user_id: this.props.student.id, role: 1 };
-      const reviewing = getFiltered(this.props.assignments, reviewOptions);
       reviewButton = (
         <AssignCell
-          course={this.props.course}
-          current_user={this.props.current_user}
-          student={this.props.student}
+          {...this.props}
           role={1}
           editable={this.props.editable}
-          assignments={reviewing}
+          assignments={this.props.reviewing}
         />
       );
     }

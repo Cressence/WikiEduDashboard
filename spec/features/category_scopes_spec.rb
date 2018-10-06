@@ -21,13 +21,14 @@ describe 'Tracked categories and template', js: true do
     visit "/courses/#{course.slug}/articles"
     click_button 'Add category'
     find('#category_name').set('Photography')
-    click_button 'Add this category'
+    find_button('Add this category').trigger('click')
     click_button 'OK'
     expect(page).to have_content 'Category:Photography'
+
     # Re-add the same category
     click_button 'Add category'
     find('#category_name').set('Photography')
-    click_button 'Add this category'
+    find_button('Add this category').trigger('click')
     click_button 'OK'
 
     click_button 'Remove'
@@ -38,7 +39,7 @@ describe 'Tracked categories and template', js: true do
     visit "/courses/#{course.slug}/articles"
     click_button 'Add template'
     find('#category_name').set('Stub')
-    click_button 'Add this template'
+    find_button('Add this template').trigger('click')
     click_button 'OK'
     expect(page).to have_content 'Template:Stub'
   end

@@ -483,19 +483,19 @@ describe 'timeline editing', js: true do
     visit "/courses/#{Course.last.slug}/timeline"
     click_button 'Arrange Timeline'
     # move down
-    omniclick find('.week-1 .week__block-list > li:nth-child(1) button:first-of-type')
+    find('.week-1 .week__block-list > li:nth-child(1) button:first-of-type').trigger('click')
     sleep 0.5
     # move down again
-    omniclick find('.week-1 .week__block-list > li:nth-child(2) button:first-of-type')
+    find('.week-1 .week__block-list > li:nth-child(2) button:first-of-type').trigger('click')
     sleep 0.5
     expect(find('.week-1 .week__block-list > li:nth-child(1)')).to have_content('Block 2')
     expect(find('.week-1 .week__block-list > li:nth-child(2)')).to have_content('Block 3')
     expect(find('.week-1 .week__block-list > li:nth-child(3)')).to have_content('Block 1')
     # move up
-    omniclick find('.week-1 .week__block-list > li:nth-child(3) button:last-of-type')
+    find('.week-1 .week__block-list > li:nth-child(3) button:last-of-type').trigger('click')
     sleep 0.5
     # move up again
-    omniclick find('.week-1 .week__block-list > li:nth-child(2) button:last-of-type')
+    find('.week-1 .week__block-list > li:nth-child(2) button:last-of-type').trigger('click')
     sleep 0.5
     expect(find('.week-1 .week__block-list > li:nth-child(1)')).to have_content('Block 1')
     expect(find('.week-1 .week__block-list > li:nth-child(2)')).to have_content('Block 2')
@@ -520,12 +520,12 @@ describe 'timeline editing', js: true do
     click_button 'Arrange Timeline'
 
     # move up to week 1
-    omniclick find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type')
+    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').trigger('click')
     sleep 0.5
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
 
     # move back down to week 2
-    omniclick find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type')
+    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').trigger('click')
     sleep 0.5
     expect(find('.week-2 .week__block-list > li:nth-child(1)')).to have_content 'Block 4'
   end
@@ -535,13 +535,13 @@ describe 'timeline editing', js: true do
     click_button 'Arrange Timeline'
 
     # move up to week 1
-    omniclick find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type')
+    find('.week-2 .week__block-list > li:nth-child(1) button:last-of-type').trigger('click')
     click_button 'Save All'
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
 
     # move down to week 2 and discard Changes
     click_button 'Arrange Timeline'
-    omniclick find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type')
+    find('.week-1 .week__block-list > li:nth-child(4) button:first-of-type').trigger('click')
     click_button 'Discard All Changes'
     # still in week 1
     expect(find('.week-1 .week__block-list > li:nth-child(4)')).to have_content 'Block 4'
