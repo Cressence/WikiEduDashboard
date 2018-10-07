@@ -17,7 +17,8 @@ const UploadViewer = createReactClass({
 
   getInitialState() {
     return {
-      loadingViews: true
+      loadingViews: true,
+      uploadViews: []
     };
   },
 
@@ -25,18 +26,30 @@ const UploadViewer = createReactClass({
     this.props.setUploadViewerMetadata(this.props.upload);
   },
 
+  componentWillReceiveProps(newProps) {
+    if ((this.props.pageViews !== '') || (newProps.pageViews !== '') || (newProps.pageViews !== this.props.pageViews)) {
+      this.setState({
+        uploadViews: [...this.state.uploadViews, this.props.pageViews, newProps.pageViews]
+      });
+    }
+  },
+
   componentDidUpdate() {
     const metadata = _.get(this.props.uploadMetadata, `query.pages[${this.props.upload.id}]`);
     const fileUsage = _.get(metadata, 'globalusage', []);
     if (fileUsage) {
+      const createdAt = _.get(metadata, 'imageinfo[0].extmetadata.DateTime.value');
       if (this.state.loadingViews) {
-        this.handleGetFileViews(fileUsage);
+        this.handleGetFileViews(fileUsage, createdAt);
       }
     }
   },
 
-  handleGetFileViews(files) {
-    this.props.setUploadPageViews(files);
+  handleGetFileViews(files, createdAt) {
+    if (createdAt !== undefined) {
+      const createdDate = createdAt.split(' ');
+      this.props.setUploadPageViews(files, createdDate[0]);
+    }
     this.setState({
       loadingViews: false
     });
@@ -64,17 +77,27 @@ const UploadViewer = createReactClass({
     const author = <a href={profileLink} target="_blank">{this.props.upload.uploader}</a>;
     const source = _.get(metadata, 'imageinfo[0].extmetadata.Credit.value');
     const license = _.get(metadata, 'imageinfo[0].extmetadata.LicenseShortName.value');
+
+    const eyeIcon = <span><img className="eye-icon" src="/assets/images/icon-eye.png" alt="View icon" /></span>;
+
     const globalUsage = _.get(metadata, 'globalusage', []);
     let usageTableElements;
-    if (globalUsage && (this.props.pageViews !== undefined)) {
+    if (globalUsage) {
       usageTableElements = globalUsage.map((usage, key) => {
-          return (
-            <tr>
-              <td>{usage.wiki}</td>
-              <td><a href={usage.url}>{usage.title}</a></td>
-              <td>{this.props.pageViews[key]}</td>
-            </tr>
-          );
+        return this.state.uploadViews.slice(0).reverse()
+          .filter((value, j) => { if (j % 2 === 0) { return value; } return null; })
+          .map((views, index) => {
+            if ((key === index)) {
+              return (
+                <tr>
+                  <td>{usage.wiki}</td>
+                  <td><a href={usage.url}>{usage.title}</a></td>
+                  <td>{views}</td>
+                </tr>
+              );
+            }
+            return null;
+          });
       });
     }
 
@@ -88,7 +111,7 @@ const UploadViewer = createReactClass({
               <tr>
                 <th>Wiki</th>
                 <th>Article Name</th>
-                <th>Average Views</th>
+                <th>{eyeIcon}</th>
               </tr>
             </thead>
             <tbody>
@@ -159,7 +182,7 @@ const UploadViewer = createReactClass({
 
 const mapStateToProps = state => ({
   uploadMetadata: state.uploads.uploadMetadata,
-  pageViews: state.uploads.averageViews
+  pageViews: state.uploads.pageViews
 });
 
 const mapDispatchToProps = {
