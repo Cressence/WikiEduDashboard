@@ -5,6 +5,7 @@ import path from 'path';
 import ManifestPlugin from 'webpack-manifest-plugin';
 import WebpackDevServer from 'webpack-dev-server';
 import config from '../config.js';
+
 const plugins = loadPlugins();
 
 gulp.task('webpack', ['jquery-uls'], (cb) => {
@@ -27,7 +28,7 @@ gulp.task('webpack', ['jquery-uls'], (cb) => {
 
   if (doHot) {
     // Wrap entries with hot hooks
-    Object.keys(entries).forEach(key => {
+    Object.keys(entries).forEach((key) => {
       entries[key] = ['webpack-dev-server/client?http://localhost:8080', 'webpack/hot/only-dev-server'].concat(entries[key]);
     });
 

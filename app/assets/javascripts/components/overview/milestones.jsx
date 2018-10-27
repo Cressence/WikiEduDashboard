@@ -4,6 +4,7 @@ import createReactClass from 'create-react-class';
 import _ from 'lodash';
 
 import CourseDateUtils from '../../utils/course_date_utils';
+
 const md = require('../../utils/markdown_it.js').default();
 
 const Milestones = createReactClass({
@@ -23,9 +24,9 @@ const Milestones = createReactClass({
   render() {
     const currentWeek = CourseDateUtils.currentWeekOrder(this.props.timelineStart);
     const blocks = [];
-    this.props.weeks.map(week => {
+    this.props.weeks.map((week) => {
       const milestoneBlocks = _.filter(week.blocks, block => block.kind === this.milestoneBlockType);
-      return milestoneBlocks.map(block => {
+      return milestoneBlocks.map((block) => {
         let classNames = 'module__data';
         if (this.weekIsCompleted(week, currentWeek)) { classNames += ' completed'; }
         const rawHtml = md.render(block.content);

@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as FeedbackAction from '../../actions/feedback_action.js';
 import API from '../../utils/api.js';
+
 const Feedback = createReactClass({
   displayName: 'Feedback',
 
@@ -141,7 +142,7 @@ const Feedback = createReactClass({
       } else {
         feedbackForm = (
           <form onSubmit={this.handleSubmit}>
-            <textarea className="feedback-form" rows="1" cols="150" ref={(input) => this.input = input} placeholder={I18n.t('courses.suggestions_feedback')} />
+            <textarea className="feedback-form" rows="1" cols="150" ref={input => this.input = input} placeholder={I18n.t('courses.suggestions_feedback')} />
             {submitFeedback}
           </form>
         );

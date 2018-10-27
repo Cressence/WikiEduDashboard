@@ -1,6 +1,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
+
 const md = require('../../utils/markdown_it.js').default();
 
 const Option = createReactClass({
@@ -48,7 +49,7 @@ const Option = createReactClass({
         moreClassName += ' open';
       }
       expand = (
-        <div className={expandClassName} ref={(div) => this.expandable = div}>
+        <div className={expandClassName} ref={div => this.expandable = div}>
           <div dangerouslySetInnerHTML={{ __html: md.render(this.props.option.description) }} />
         </div>
       );

@@ -86,7 +86,7 @@ const Week = createReactClass({
     const blocks = this.props.blocks.map((block, i) => {
       // If in reorderable mode
       if (this.props.reorderable) {
-        const orderableBlock = value => {
+        const orderableBlock = (value) => {
           const rounded = Math.round(value.y);
           const animating = rounded !== i * 75;
           const willChange = animating ? 'top' : 'initial';
@@ -167,11 +167,14 @@ const Week = createReactClass({
         },
           <ReactCSSTG transitionName="shrink" transitionEnterTimeout={250} transitionLeaveTimeout={250} component="ul" className="week__block-list list-unstyled" style={style}>
             {blocks}
-          </ReactCSSTG>)
-      :
-        (<ul className="week__block-list list-unstyled">
-          {blocks}
-        </ul>)
+          </ReactCSSTG>
+        )
+        :
+        (
+          <ul className="week__block-list list-unstyled">
+            {blocks}
+          </ul>
+        )
     );
 
     let weekClassName = `week week-${this.props.index}`;

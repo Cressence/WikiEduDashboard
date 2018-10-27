@@ -1,14 +1,15 @@
 import McFly from 'mcfly';
 import { ADD_NOTIFICATION, REMOVE_NOTIFICATION } from '../constants';
+
 const Flux = new McFly();
 
 
-export const addNotification = (notification) => ({
+export const addNotification = notification => ({
   type: ADD_NOTIFICATION,
   notification
 });
 
-export const removeNotification = (notification) => ({
+export const removeNotification = notification => ({
   type: REMOVE_NOTIFICATION,
   notification
 });

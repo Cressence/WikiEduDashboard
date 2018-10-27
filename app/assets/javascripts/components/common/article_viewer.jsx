@@ -67,9 +67,8 @@ const ArticleViewer = createReactClass({
 
   // It takes the data sent as the parameter and appends to the current Url
   addParamToURL(urlParam) {
-    if (!this.props.showArticleFinder) {
-      window.history.pushState({}, '', `?showArticle=${urlParam}`);
-    }
+    if (this.props.showArticleFinder) { return; }
+    window.history.pushState({}, '', `?showArticle=${urlParam}`);
   },
 
   // It takes a synthetic event to check if it exist
@@ -77,10 +76,10 @@ const ArticleViewer = createReactClass({
   // if either case is true, it removes all parameters from the URL(starting from the ?)
   removeParamFromURL(event) {
     if (this.props.showArticleFinder) { return; }
-      const viewer = document.getElementsByClassName('article-viewer')[0];
-      if ((!viewer || event)) {
-        window.history.replaceState(null, null, window.location.pathname);
-      }
+    const viewer = document.getElementsByClassName('article-viewer')[0];
+    if (!viewer || event) {
+      window.history.replaceState(null, null, window.location.pathname);
+    }
   },
 
   showArticle() {
