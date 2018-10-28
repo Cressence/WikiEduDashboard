@@ -2,6 +2,27 @@
 
 require 'pandoc-ruby'
 
+# Interwiki shorthands, source: https://en.wikipedia.org/wiki/Help:Interwiki_linking#Project_titles_and_shortcuts
+INTERWIKI_PREFIXES = {
+  ':wikipedia' => ':w',
+  ':wiktionary' => ':wikt',
+  ':wikinews' => ':n',
+  ':wikibooks' => ':b',
+  ':wikiquote' => ':q',
+  ':wikisource' => ':s',
+  ':wikiversity' => ':v',
+  ':wikivoyage' => ':voy',
+  # ':commons' => ':c',
+  # ':wikimedia' => ':wmf',
+  # ':foundation' => ':wmf'
+  # # Disabled due to Invalid Project:
+  # ':metawikipedia' => ':m',
+  # ':meta' => ':m',
+  # ':wikispecies' => ':species',
+  # ':mediawikiwiki' => ':mw',
+  # ':phabricator' => ':phab'
+}.freeze
+
 #= Utilities to create and manipulate mediawiki wikitext
 class Wikitext
   ################################
@@ -64,12 +85,14 @@ class Wikitext
     project = assignment.wiki.project
     language = assignment.wiki.language
 
-    # For other wikis a language prefix is required, except for wikidata where the language is nil
-    language_prefix = language ? ":#{language}:" : ''
-    # If the project is different, a project prefix is also necessary.
-    project_prefix = project == home_wiki.project ? '' : "#{project}:"
+    return ":c:#{title}" if language == 'commons'
 
-    language_prefix + project_prefix + title
+    # For other wikis a language prefix is required, except for wikidata where the language is nil
+    language_prefix = language ? ":#{language}" : ''
+    # If the project is different, a project prefix is also necessary.
+    project_prefix = project == home_wiki.project ? '' : ":#{project}"
+
+    (INTERWIKI_PREFIXES[project_prefix] || project_prefix) + language_prefix + ':' + title
   end
 
   # converts page title to a format suitable for on-wiki use

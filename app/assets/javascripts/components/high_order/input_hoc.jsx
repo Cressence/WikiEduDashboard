@@ -25,8 +25,7 @@ const InputHOC = (Component) => {
         {
           value: props.value,
           id: props.id || this.state.id || uuid.v4() // create a UUID if no id prop
-        }
-        , function () {
+        }, function () {
           const valid = ValidationStore.getValidation(this.props.value_key);
           if (valid && this.props.required && (!props.value || props.value === null || props.value.length === 0)) {
             return ValidationActions.initialize(this.props.value_key, I18n.t('application.field_required'));
@@ -66,7 +65,7 @@ const InputHOC = (Component) => {
         let charcheck;
         if (this.props.validation instanceof RegExp) {
           charcheck = (new RegExp(this.props.validation)).test(this.state.value);
-        } else if (typeof(this.props.validation) === 'function') {
+        } else if (typeof (this.props.validation) === 'function') {
           charcheck = this.props.validation(this.state.value);
         }
         if (this.props.required && !filled) {
