@@ -10,7 +10,7 @@ kjp:
     greeting_extended: အင်းၯးလင်ဖဝ့် လ်ုဝီးကေဝ်ပီဍီယာႋခဝ့်
     greeting: အှ်ဆံင်လာႋဆာ်
     help: မာၜိုင်မာဆိုင်
-    home: လိက်မေံခေါဟ်
+    home: အ်ုထိုဝ်ခေါဟ်
     log_in_extended: မ်ုအွးလင်ႋ ဝီးကေဝ်ပီဍီယာႋ
     log_in: အွးလင်
     log_out: တါ်ထင်း
@@ -23,6 +23,9 @@ kjp:
     opt_out: မွာဲအေး
   articles:
     edited_mobile: လိက်သာထိင်ႋသယ်
+    filter:
+      wiki_all: လုက်ဆိင့်
+      new: အ်ုသင့်
     hide: အှ်သူး
     history: (မေင်ႋစိင်)
     label: လိက်သာထိင်ႋသယ်
@@ -43,4 +46,5 @@ kjp:
     created_at: မူႋၮီ
   courses:
     overview: ဗဟိုစာမျက်နှာ
+    timeline_nav: မ်ုလေဝ်လူႋအ်ုခါ့ဖၠံင်
 ...

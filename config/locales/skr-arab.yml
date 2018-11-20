@@ -1,6 +1,7 @@
 # Messages for Saraiki (Arabic script) (سرائیکی)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Rachitrali
 # Author: Saraiki
 ---
 skr-arab:
@@ -51,6 +52,10 @@ skr-arab:
     deleted: (مٹا ݙتے)
     edited_by: 'لکھݨ آلا:'
     edited_mobile: مقالے
+    filter:
+      wiki_all: یکے
+      new: نواں
+      existing: زیر ترمیم
     hide: لُکاؤ
     history: (تاریخ)
     label: مقالے
@@ -162,6 +167,7 @@ skr-arab:
     submitted: جمع تھی ڳیا
     term: ٹرم
     timeline_link: ٹائم لائن
+    timeline_nav: ٹائم لائن تے ون٘ڄو
     title: عنوان
     view: کورس ݙیکھو
     view_page: کورس ورقہ ݙیکھو

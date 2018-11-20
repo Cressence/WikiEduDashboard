@@ -11,9 +11,19 @@
 # Author: Stojex
 # Author: Tar Lócesilion
 # Author: The Polish
+# Author: Warchlak
 # Author: Woytecr
 ---
 pl:
+  number:
+    human:
+      decimal_units:
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
   accessibility:
     number_field: To jest pole numeryczne. Przyciski renderowane przez większość przeglądarek
       zwiększają i zmniejszają wprowadzoną wartość.
@@ -692,7 +702,7 @@ pl:
       usuniętej treści też zwiększy wynik.
     chars_added: Znaki dodane<br>(artykuły | strony użytkownika | brudnopisy)
     contributions: Wkład użytkownika
-    contributions_history_full: Zobacz całą historię wkładu w Wikipedię
+    contributions_history_full: Zobacz całą historię wkładu
     contributions_more: Zobacz więcej wkładu
     contribution_statistics: Statystyki wkładu
     course_passcode: 'Kod dostępu:'

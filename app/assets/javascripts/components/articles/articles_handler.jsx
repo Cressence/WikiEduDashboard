@@ -8,9 +8,9 @@ import AssignmentList from '../assignments/assignment_list.jsx';
 import AvailableArticles from '../articles/available_articles.jsx';
 import CourseOresPlot from './course_ores_plot.jsx';
 import CategoryHandler from '../categories/category_handler.jsx';
-import { fetchArticles, sortArticles, filterArticles } from '../../actions/articles_actions.js';
+import { fetchArticles, sortArticles, filterArticles, filterNewness } from '../../actions/articles_actions.js';
 import { fetchAssignments } from '../../actions/assignment_actions';
-import { getWikiArticles } from '../../selectors';
+import { getArticlesByNewness } from '../../selectors';
 
 const ArticlesHandler = createReactClass({
   displayName: 'ArticlesHandler',
@@ -45,6 +45,10 @@ const ArticlesHandler = createReactClass({
     return this.props.filterArticles({ language: null, project: value[0] });
   },
 
+  onNewnessChange(e) {
+    return this.props.filterNewness(e.target.value);
+  },
+
   showMore() {
     return this.props.fetchArticles(this.props.course_id, this.props.limit + 500);
   },
@@ -65,10 +69,10 @@ const ArticlesHandler = createReactClass({
 
     let header;
     if (Features.wikiEd) {
-      header = <h3 className="tooltip-trigger">{I18n.t('metrics.articles_edited')}</h3>;
+      header = <h3 className="article tooltip-trigger">{I18n.t('metrics.articles_edited')}</h3>;
     } else {
       header = (
-        <h3 className="tooltip-trigger">{I18n.t('metrics.articles_edited')}
+        <h3 className="article tooltip-trigger">{I18n.t('metrics.articles_edited')}
           <span className="tooltip-indicator" />
           <div className="tooltip dark">
             <p>{I18n.t('articles.cross_wiki_tracking')}</p>
@@ -90,32 +94,49 @@ const ArticlesHandler = createReactClass({
       });
 
       filterWikis = (
-        <div className="filter-select">
-          <select className="filters" name="filters" onChange={this.onChangeFilter}>
-            <option value="all">All</option>
-            {wikiOptions}
-          </select>
-        </div>
+        <select onChange={this.onChangeFilter}>
+          <option value="all">{I18n.t('articles.filter.wiki_all')}</option>
+          {wikiOptions}
+        </select>
       );
     }
 
+    let filterArticlesSelect;
+    if (this.props.newnessFilterEnabled) {
+      filterArticlesSelect = (
+        <select className="filter-articles" defaultValue="both" onChange={this.onNewnessChange}>
+          <option value="new">{I18n.t('articles.filter.new')}</option>
+          <option value="existing">{I18n.t('articles.filter.existing')}</option>
+          <option value="both">{I18n.t('articles.filter.new_and_existing')}</option>
+        </select>
+      );
+    }
+
+    let filterLabel;
+    if (!!filterWikis || !!filterArticlesSelect) {
+      filterLabel = <b>Filters:</b>;
+    }
     return (
       <div>
         <div id="articles">
           <div className="section-header">
             {header}
             <CourseOresPlot course={this.props.course} />
-            {filterWikis}
-            <div className="sort-select">
-              <select className="sorts" name="sorts" onChange={this.sortSelect}>
-                <option value="rating_num">{I18n.t('articles.rating')}</option>
-                <option value="title">{I18n.t('articles.title')}</option>
-                <option value="character_sum">{I18n.t('metrics.char_added')}</option>
-                <option value="view_count">{I18n.t('metrics.view')}</option>
-              </select>
+            <div className="wrap-filters">
+              {filterLabel}
+              {filterArticlesSelect}
+              {filterWikis}
+              <div className="article-sort">
+                <select className="sorts" name="sorts" onChange={this.sortSelect}>
+                  <option value="rating_num">{I18n.t('articles.rating')}</option>
+                  <option value="title">{I18n.t('articles.title')}</option>
+                  <option value="character_sum">{I18n.t('metrics.char_added')}</option>
+                  <option value="view_count">{I18n.t('metrics.view')}</option>
+                </select>
+              </div>
             </div>
           </div>
-          <ArticleList articles={this.props.articles} sortBy={this.props.sortArticles} {...this.props} />
+          <ArticleList {...this.props} articles={this.props.articles} sortBy={this.props.sortArticles} />
           {showMoreButton}
         </div>
         <div id="assignments" className="mt4">
@@ -133,19 +154,21 @@ const ArticlesHandler = createReactClass({
 
 const mapStateToProps = state => ({
   limit: state.articles.limit,
-  articles: getWikiArticles(state),
+  articles: getArticlesByNewness(state),
   limitReached: state.articles.limitReached,
   wikis: state.articles.wikis,
   wikidataLabels: state.wikidataLabels.labels,
   loadingArticles: state.articles.loading,
   assignments: state.assignments.assignments,
-  loadingAssignments: state.assignments.loading
+  loadingAssignments: state.assignments.loading,
+  newnessFilterEnabled: state.articles.newnessFilterEnabled
 });
 
 const mapDispatchToProps = {
   fetchArticles,
   sortArticles,
   filterArticles,
+  filterNewness,
   fetchAssignments
 };
 

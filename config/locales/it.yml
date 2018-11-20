@@ -82,6 +82,11 @@ it:
     edited: Voci modificate
     edited_by: 'Modificato da:'
     edited_mobile: Voci
+    filter:
+      wiki_all: Tutto
+      new: Nuovo
+      existing: Esistente
+      new_and_existing: Nuovo ed esistente
     hide: Nascondi
     history: (cronologia)
     label: Voci
@@ -284,6 +289,7 @@ it:
       traccia dei tuoi contributi con aggiornamenti periodici. Torna più tardi per
       vedere quale impatto hai fatto!
     join_no_passcode: Sei sicuro di voler entrare in questo corso?
+    launch_wizard: Avvia la procedura guidata
     leave_confirmation: Sei sicuro di voler lasciare questo corso?
     loading: Caricamento…
     milestones_none: Questo corso attualmente non ha pietre miliari.
@@ -568,7 +574,7 @@ it:
     assigned: Voci assegnate
     chars_added: Caratteri aggiunti<br>(voce | utente | bozza)
     contributions: Contributi dell'utente
-    contributions_history_full: Vedi la cronologia completa dei contributi su Wikipedia
+    contributions_history_full: Vedi la cronologia completa dei contributi
     contributions_more: Visualizza Ulteriori Contributi
     editors: Contributori
     enroll_confirmation: Sei sicuro di voler aggiungere %{username}?
