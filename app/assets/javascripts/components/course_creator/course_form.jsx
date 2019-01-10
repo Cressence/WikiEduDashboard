@@ -4,7 +4,6 @@ import TextInput from '../common/text_input.jsx';
 import DatePicker from '../common/date_picker.jsx';
 
 const CourseForm = ({ courseFormClass, campaign, course_utils, string_prefix, updateCourseAction, course, term, courseLevel, subject, expectedStudents, language, project, privacyCheckbox, showTimeValues, updateCourseDateAction, dateProps, eventCheckbox, eventClass, timelineStart, timelineEnd, timeZoneMessage, descriptionRequired, roleDescription }) => {
-  
   return (
     <div className={courseFormClass}>
       <div className="column">
